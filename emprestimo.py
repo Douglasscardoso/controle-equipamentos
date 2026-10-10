@@ -1,20 +1,26 @@
+from equipamento import Equipamento
+
 
 class Emprestimo:
-    def __init__(self, pessoa, equipamento, quantidade):
-        self.pessoa = pessoa 
+    """Empréstimo de uma quantidade de um equipamento para uma pessoa."""
+
+    def __init__(self, pessoa: str, equipamento: Equipamento, quantidade: int):
+        self.pessoa = pessoa
         self.equipamento = equipamento
         self.quantidade = quantidade
 
-    def registrar(self, emprestimos):
-        resultado = self.equipamento.emprestar(self.quantidade)
-        resposta = isinstance(resultado,int)
+    def registrar(self, emprestimos: list) -> bool:
+        """Baixa o saldo do equipamento e guarda o empréstimo em `emprestimos`.
 
-        if resposta:
-             print("registrado")
-             emprestimos.append(self)
-        else:
+        Retorna True se registrou, False se não foi possível.
+        """
+        try:
+            self.equipamento.emprestar(self.quantidade)
+        except ValueError as erro:
             print("não foi possível registrar")
-            print(resultado)
+            print(erro)
+            return False
 
-      
-
+        print("registrado")
+        emprestimos.append(self)
+        return True
