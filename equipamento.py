@@ -16,3 +16,13 @@ class Equipamento:
 
         self.quantidade_disponivel -= quantidade
         return self.quantidade_disponivel
+
+    def devolver(self, quantidade: int) -> int:
+        """Devolve `quantidade` ao saldo e retorna o novo saldo disponível."""
+        if quantidade <= 0:
+            raise ValueError("quantidade inválida")
+        if self.quantidade_disponivel + quantidade > self.quantidade_total:
+            raise ValueError("devolução maior que a quantidade emprestada")
+
+        self.quantidade_disponivel += quantidade
+        return self.quantidade_disponivel

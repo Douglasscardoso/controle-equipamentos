@@ -8,6 +8,7 @@ class Emprestimo:
         self.pessoa = pessoa
         self.equipamento = equipamento
         self.quantidade = quantidade
+        self.devolvido = False
 
     def registrar(self, emprestimos: list) -> bool:
         """Baixa o saldo do equipamento e guarda o empréstimo em `emprestimos`.
@@ -24,3 +25,11 @@ class Emprestimo:
         print("registrado")
         emprestimos.append(self)
         return True
+
+    def devolver(self) -> None:
+        """Devolve o equipamento ao saldo e marca o empréstimo como encerrado."""
+        if self.devolvido:
+            raise ValueError("este empréstimo já foi devolvido")
+
+        self.equipamento.devolver(self.quantidade)
+        self.devolvido = True
