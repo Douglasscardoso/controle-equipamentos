@@ -1,30 +1,19 @@
+from dataclasses import dataclass, field
+from datetime import datetime
+
 from equipamento import Equipamento
 
 
+@dataclass
 class Emprestimo:
     """Empréstimo de uma quantidade de um equipamento para uma pessoa."""
 
-    def __init__(self, pessoa: str, equipamento: Equipamento, quantidade: int):
-        self.pessoa = pessoa
-        self.equipamento = equipamento
-        self.quantidade = quantidade
-        self.devolvido = False
-
-    def registrar(self, emprestimos: list) -> bool:
-        """Baixa o saldo do equipamento e guarda o empréstimo em `emprestimos`.
-
-        Retorna True se registrou, False se não foi possível.
-        """
-        try:
-            self.equipamento.emprestar(self.quantidade)
-        except ValueError as erro:
-            print("não foi possível registrar")
-            print(erro)
-            return False
-
-        print("registrado")
-        emprestimos.append(self)
-        return True
+    id: int
+    pessoa: str
+    equipamento: Equipamento
+    quantidade: int
+    data: datetime = field(default_factory=datetime.now)
+    devolvido: bool = False
 
     def devolver(self) -> None:
         """Devolve o equipamento ao saldo e marca o empréstimo como encerrado."""
@@ -33,3 +22,10 @@ class Emprestimo:
 
         self.equipamento.devolver(self.quantidade)
         self.devolvido = True
+
+    def __str__(self) -> str:
+        situacao = "devolvido" if self.devolvido else "em aberto"
+        return (
+            f"#{self.id} {self.pessoa} - {self.quantidade}x {self.equipamento.nome} "
+            f"({self.data:%d/%m/%Y %H:%M}, {situacao})"
+        )
