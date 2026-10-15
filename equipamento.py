@@ -2,8 +2,13 @@ class Equipamento:
     """Equipamento com controle de saldo disponível para empréstimo."""
 
     def __init__(self, codigo: str, nome: str, quantidade_total: int):
-        self.codigo = codigo
-        self.nome = nome
+        if not codigo.strip() or not nome.strip():
+            raise ValueError("código e nome são obrigatórios")
+        if quantidade_total <= 0:
+            raise ValueError("quantidade total deve ser maior que zero")
+
+        self.codigo = codigo.strip()
+        self.nome = nome.strip()
         self.quantidade_total = quantidade_total
         self.quantidade_disponivel = quantidade_total
 
@@ -26,3 +31,9 @@ class Equipamento:
 
         self.quantidade_disponivel += quantidade
         return self.quantidade_disponivel
+
+    def __str__(self) -> str:
+        return (
+            f"[{self.codigo}] {self.nome} - "
+            f"{self.quantidade_disponivel}/{self.quantidade_total} disponíveis"
+        )

@@ -10,6 +10,12 @@ class TestEquipamento(unittest.TestCase):
     def test_saldo_inicial_igual_ao_total(self):
         self.assertEqual(self.furadeira.quantidade_disponivel, 5)
 
+    def test_cadastro_invalido(self):
+        with self.assertRaises(ValueError):
+            Equipamento("", "furadeira", 5)
+        with self.assertRaises(ValueError):
+            Equipamento("001", "furadeira", 0)
+
     def test_emprestar_baixa_o_saldo(self):
         self.assertEqual(self.furadeira.emprestar(2), 3)
 
