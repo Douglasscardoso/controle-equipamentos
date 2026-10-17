@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 
-from equipamento import Equipamento
+from controle_equipamentos.equipamento import Equipamento
 
 
 @dataclass

@@ -1,6 +1,6 @@
 import unittest
 
-from equipamento import Equipamento
+from controle_equipamentos import Equipamento
 
 
 class TestEquipamento(unittest.TestCase):

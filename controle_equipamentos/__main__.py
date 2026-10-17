@@ -1,4 +1,4 @@
-from controle import ControleEquipamentos
+from controle_equipamentos.controle import ControleEquipamentos
 
 
 def main() -> None:

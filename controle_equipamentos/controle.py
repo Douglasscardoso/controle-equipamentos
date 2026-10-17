@@ -1,5 +1,5 @@
-from emprestimo import Emprestimo
-from equipamento import Equipamento
+from controle_equipamentos.emprestimo import Emprestimo
+from controle_equipamentos.equipamento import Equipamento
 
 
 class ControleEquipamentos:
